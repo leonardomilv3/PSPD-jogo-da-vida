@@ -1,11 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <omp.h>
 
 
 #define ind2d(i,j) (i)*(tam+2)+j
 #define POWMIN 3
 #define POWMAX 10
+
+
+
+/*
+===============================================================================
+Jogo da Vida de Conway com Paralelismo OpenMP
+-------------------------------------------------------------------------------
+Este programa simula o autômato celular "Game of Life" para tabuleiros de 
+tamanhos crescentes, utilizando a configuração inicial conhecida como "glider".
+
+PARALELIZAÇÃO:
+A função UmaVida(), responsável por aplicar as regras do jogo em cada célula 
+do tabuleiro, foi paralelizada com OpenMP utilizando a diretiva:
+    #pragma omp parallel for
+
+Essa diretiva paraleliza o loop externo (linha por linha do tabuleiro), pois 
+as iterações são independentes — cada thread processa uma linha do tabuleiro 
+sem interferir nas demais.
+
+As variáveis internas ao loop, como `j` (coluna) e `vizviv` (vizinhos vivos), 
+são declaradas como `private` para garantir que cada thread utilize suas 
+próprias cópias, evitando condições de corrida.
+
+===============================================================================
+*/
 
 
 
@@ -21,6 +47,8 @@ double wall_time(void) {
 
 void UmaVida(int* tabulIn, int* tabulOut, int tam) {
     int i, j, vizviv;
+
+    #pragma omp parallel for private(j, vizviv)
     for (i=1; i<=tam; i++) {
         for (j= 1; j<=tam; j++) {
             vizviv = tabulIn[ind2d(i-1,j-1)] + tabulIn[ind2d(i-1,j )] +
