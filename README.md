@@ -21,5 +21,6 @@ A Versão MPI tem como objetivo dividir o trabalho de simulação da evolução 
 
 - Como Executar o código MPI
 
-``` mpicc -o jogodavidampi jogodavidampi.c ```
-``` mpirun -np 4 ./jogodavidampi ```
+`mpicc -o jogodavidampi jogodavidampi.c` 
+
+`mpirun -np 4 ./jogodavidampi `
