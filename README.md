@@ -193,6 +193,8 @@ O código está disponível no arquivo `jogodavidaompgpu.cu`. Ele segue a lógic
 | 512         | 0.0467100       |
 | 1024        | 0.3152190       |
 
+![omp](assets/ompgpu.png)
+
 ### 🧠 Conclusão
 
 A implementação híbrida **CUDA + OpenMP** apresentou resultados corretos em todos os testes, com o padrão *glider* alcançando a posição esperada no tabuleiro final.  
